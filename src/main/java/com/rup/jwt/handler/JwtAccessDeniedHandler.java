@@ -22,7 +22,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType("application/json; charset=UTF-8");
-        response.setStatus(403);
+        response.setStatus(401);
         PrintWriter writer = response.getWriter();
 
         ApiErrorResult apiErrorResult = ApiErrorResult.builder()
@@ -31,12 +31,12 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
                 .message(ErrorStatus._FORBIDDEN.getMessage())
                 .result(null)
                 .build();
-        try{
+        try {
             writer.write(apiErrorResult.toString());
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             LOGGER.error("응답 메시지 작성 에러", e);
-        }finally{
-            if(writer != null) {
+        } finally {
+            if (writer != null) {
                 writer.flush();
                 writer.close();
             }

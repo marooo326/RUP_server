@@ -33,10 +33,10 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
                 .build();
         try {
             writer.write(apiErrorResult.toString());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             LOGGER.error("응답 메시지 작성 에러", e);
-        }finally {
-            if(writer != null){
+        } finally {
+            if (writer != null) {
                 writer.flush();
                 writer.close();
             }
