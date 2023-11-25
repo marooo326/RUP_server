@@ -1,4 +1,7 @@
 package com.rup.repository;
 
-public class MemberRepository {
+import com.rup.domain.Member;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
 }
