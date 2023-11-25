@@ -13,13 +13,14 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class PromiseService {
+    private final int RANDOM_CODE_LENGTH = 6;
+
     private final PromiseRepository promiseRepository;
     private final PromiseMemberRepository promiseMemberRepository;
     private final MemberService memberService;
-    private final int randomCodeLenght = 6;
 
     private String createRandomCode() {
-        return RandomStringUtils.randomNumeric(randomCodeLenght);
+        return RandomStringUtils.randomNumeric(RANDOM_CODE_LENGTH);
     }
 
     public Promise participateInPromise(Long memberId, String inviteCode) {
