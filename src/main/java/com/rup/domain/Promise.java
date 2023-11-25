@@ -1,20 +1,21 @@
 package com.rup.domain;
 
-import com.rup.domain.enums.MemberStatus;
+import com.rup.domain.enums.PromiseStatus;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "members")
+@Table(name = "promises")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @EntityListeners(AuditingEntityListener.class)
-public class Member extends BaseEntity {
+public class Promise extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,17 +24,12 @@ public class Member extends BaseEntity {
     private String name;
 
     @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
-    private Long point;
+    private LocalDateTime promiseTime;
 
     @Enumerated(EnumType.STRING)
-    private MemberStatus status;
+    private PromiseStatus status;
 
-    @OneToOne(mappedBy = "member")
-    private Location location;
-
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "promise")
     private List<PromiseMember> promiseMembers;
+
 }
