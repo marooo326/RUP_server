@@ -20,6 +20,6 @@ jwt:
   secret:
     key: secrethbhbsecretehbhb987654321secrethbhbsecretehbhb987654321secrethbhbsecretehbhb987654321
 
-#server:
-#  use-forward-headers=true
-#  forward-headers-strategy=framework
+server:
+  use-forward-headers=true
+  forward-headers-strategy=framework
