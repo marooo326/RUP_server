@@ -40,7 +40,7 @@ public class PromiseController {
     }
 
     @GetMapping("/{promiseId}")
-    public ResponseDto<PromiseSummaryResponseDto> getPromise(@AuthMember Long memberId, @PathVariable Long promiseId) {
+    public ResponseDto<PromiseDetailResponseDto> getPromise(@AuthMember Long memberId, @PathVariable Long promiseId) {
         Promise promise = promiseService.getPromise(memberId, promiseId);
         return ResponseDto.of(PromiseDetailResponseDto.of(promise));
     }

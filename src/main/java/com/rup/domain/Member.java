@@ -49,4 +49,8 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private List<PromiseMember> promiseMembers;
+
+    public void updateLocation(Location location) {
+        this.location = location;
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,6 +44,7 @@ public class Promise extends BaseEntity {
     @JoinColumn(name = "author_id")
     private Member author;
 
+    @Builder.Default
     @OneToMany(mappedBy = "promise")
-    private List<PromiseMember> promiseMembers;
+    private List<PromiseMember> promiseMembers = new ArrayList<>();
 }

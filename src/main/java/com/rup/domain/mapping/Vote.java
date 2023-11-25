@@ -30,6 +30,7 @@ public class Vote extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member target;
 
+    @Builder.Default
     @OneToMany
     private List<MemberVote> memberVotes = new ArrayList<>();
 }
