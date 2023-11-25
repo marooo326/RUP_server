@@ -40,6 +40,7 @@ public class MemberResponseDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class MemberDetailResponseDto {
+        private Long id;
         private String name;
         private Long point;
         private MemberType type;
@@ -47,6 +48,7 @@ public class MemberResponseDto {
 
         public static MemberDetailResponseDto of(Member member) {
             return MemberDetailResponseDto.builder()
+                    .id(member.getId())
                     .name(member.getName())
                     .point(member.getPoint())
                     .type(member.getType())

@@ -13,6 +13,7 @@ public class PromiseResponseDto {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class PromiseSummaryResponseDto {
+        private Long id;
         private String name;
         private LocalDateTime promiseTime;
         private Long penalty;
@@ -22,6 +23,7 @@ public class PromiseResponseDto {
 
         public static PromiseSummaryResponseDto of(Promise promise) {
             return PromiseSummaryResponseDto.builder()
+                    .id(promise.getId())
                     .name(promise.getName())
                     .promiseTime(promise.getPromiseTime())
                     .penalty(promise.getPenalty())
@@ -37,7 +39,7 @@ public class PromiseResponseDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class PromiseDetailResponseDto {
-
+        private Long id;
         private String name;
         private LocalDateTime promiseTime;
         private Long penalty;
@@ -47,6 +49,7 @@ public class PromiseResponseDto {
 
         public static PromiseDetailResponseDto of(Promise promise) {
             return PromiseDetailResponseDto.builder()
+                    .id(promise.getId())
                     .name(promise.getName())
                     .promiseTime(promise.getPromiseTime())
                     .penalty(promise.getPenalty())
