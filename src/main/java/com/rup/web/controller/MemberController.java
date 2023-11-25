@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.rup.utils.ContextUtil.getMemberId;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -30,9 +32,9 @@ public class MemberController {
     @ApiResponses({
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
-    @GetMapping("/{userId}")
-    public ResponseDto<MemberDetailResponseDto> getMember(@PathVariable("userId") Long userId) {
-        Member member = memberService.getMember(userId);
+    @GetMapping("/{memberId}")
+    public ResponseDto<MemberDetailResponseDto> getMember(@PathVariable("memberId") Long memberId) {
+        Member member = memberService.getMember(memberId);
         MemberDetailResponseDto memberInfoResponseDto = memberConverter.memberEntityToMemberInfoDto(member);
         return ResponseDto.of(memberInfoResponseDto);
     }
@@ -58,6 +60,10 @@ public class MemberController {
         return ResponseDto.of(memberService.login(kakaoMember.getKakaoId()));
     }
 
+    @Operation(summary = "회원가입 API", description = "회원가입 API 입니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "2000", description = "OK 성공"),
+    })
     @PostMapping("/signUp")
     public ResponseDto<MemberResponseDto.basicResponseDto> signup(@RequestBody MemberRequestDto.signUpDto signUpDto) {
         memberService.signUp(signUpDto);
@@ -66,6 +72,10 @@ public class MemberController {
                 .build());
     }
 
+    @Operation(summary = "키워드 API", description = "키워드 API 입니다. 맴버의 키워드를 반환합니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "2000", description = "OK 성공"),
+    })
     @GetMapping("/keywords")
     public ResponseDto<MemberResponseDto.keywordDto> keywords() {
         List<Keyword> keywords = keywordService.findAll();
@@ -73,6 +83,16 @@ public class MemberController {
         return ResponseDto.of(MemberResponseDto.keywordDto.builder()
                 .keywords(keywords)
                 .build());
+    }
+
+    @Operation(summary = "멤버 삭제 API", description = "멤버 삭제 API입니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "2000", description = "OK 성공"),
+    })
+    @DeleteMapping("")
+    public ResponseDto<Void> deleteUser() {
+        memberService.deleteMember(getMemberId());
+        return ResponseDto.of(null);
     }
 
 }

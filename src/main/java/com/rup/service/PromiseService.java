@@ -109,7 +109,14 @@ public class PromiseService {
                 MemberResponseDto.MemberDetailResponseDto.of(promiseMember.getMember())).toList();
     }
 
+    public void completeMember(Long memberId, Long promiseId) {
+        PromiseMember promiseMember = promiseMemberRepository.findByMemberIdAndPromiseId(memberId, promiseId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
+        promiseMember.complete();
+    }
+
     public void deletePromise(Long promiseId) {
         promiseRepository.deleteById(promiseId);
     }
+
+
 }

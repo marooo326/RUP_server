@@ -8,12 +8,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.rup.utils.ContextUtil.getMemberId;
 import static com.rup.web.dto.request.PromiseRequestDto.LocationUpdateDto;
 import static com.rup.web.dto.request.PromiseRequestDto.PromiseCreateDto;
 import static com.rup.web.dto.response.MemberResponseDto.LocationResponseDto;
@@ -67,6 +66,16 @@ public class PromiseController {
         return ResponseDto.of(PromiseDetailResponseDto.of(promise));
     }
 
+    @Operation(summary = "멤버 도착 API", description = "해당 약속의 멤버를 도착처리하는 API입니다.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "2000", description = "OK 성공"),
+    })
+    @PostMapping("/{promiseId}")
+    public ResponseDto<List<MemberDetailResponseDto>> completeMember(@PathVariable Long promiseId) {
+        promiseService.completeMember(getMemberId(), promiseId);
+        return ResponseDto.of(promiseService.completePromise(promiseId));
+    }
+
     @Operation(summary = "위치 업데이트 API", description = "위치를 업데이트하는 API입니다. Body에 위도, 경도, 주소를 넣어주시면 본인 위치를 업데이트하고, 나머지 멤버들의 위치를 반환합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
@@ -98,15 +107,6 @@ public class PromiseController {
         promiseService.deletePromise(promiseId);
         return ResponseDto.of(null);
     }
-
-    private Long getMemberId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return Long.parseLong(authentication.getName().toString());
-    }
-
-
-    //삭제
-    //수정 1시간 전에만
 
 
 }
