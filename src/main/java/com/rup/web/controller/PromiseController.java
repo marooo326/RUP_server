@@ -92,7 +92,7 @@ public class PromiseController {
 
     private Long getMemberId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return Long.parseLong(authentication.getPrincipal().toString());
+        return Long.parseLong(authentication.getName().toString());
     }
     //삭제
     //수정 1시간 전에만
