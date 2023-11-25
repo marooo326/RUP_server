@@ -24,5 +24,4 @@ public class MemberService {
         Optional<Member> getMember = memberRepository.findById(memberId);
         return getMember.get();
     }
-
 }

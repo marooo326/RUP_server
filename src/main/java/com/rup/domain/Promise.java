@@ -30,6 +30,9 @@ public class Promise extends BaseEntity {
     @Column(nullable = false)
     private Long penalty;
 
+    @Column(nullable = false)
+    private String randomCode;
+
     @Enumerated(EnumType.STRING)
     private PromiseStatus status;
 
