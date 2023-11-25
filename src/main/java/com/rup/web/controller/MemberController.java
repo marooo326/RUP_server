@@ -52,5 +52,13 @@ public class MemberController {
     public ResponseDto<MemberResponseDto.LoginMember> memberLogin(@RequestBody MemberRequestDto.kakaoMember kakaoMember) {
         return ResponseDto.of(memberService.login(kakaoMember.getKakaoId()));
     }
+    
+    @PostMapping("/signUp")
+    public ResponseDto<MemberResponseDto.basicResponseDto> signup(@RequestBody MemberRequestDto.signUpDto signUpDto) {
+        memberService.signUp(signUpDto);
+        return ResponseDto.of(MemberResponseDto.basicResponseDto.builder()
+                .basicResponse(true)
+                .build());
+    }
 
 }

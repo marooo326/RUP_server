@@ -87,4 +87,12 @@ public class MemberResponseDto {
     public static class existsInfo {
         private boolean isExist;
     }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class basicResponseDto {
+        private boolean basicResponse;
+    }
 }

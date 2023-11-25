@@ -37,6 +37,7 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/member/exists",
                         "/member/login",
+                        "/member/**",
                         "/docs/**", "/members/oauth/**"
                 );
     }

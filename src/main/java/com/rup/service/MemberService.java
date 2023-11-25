@@ -3,8 +3,10 @@ package com.rup.service;
 import com.rup.apiPayload.code.ErrorStatus;
 import com.rup.apiPayload.exception.handler.MemberExceptionHandler;
 import com.rup.domain.Member;
+import com.rup.domain.enums.UserRole;
 import com.rup.jwt.JwtProvider;
 import com.rup.repository.MemberRepository;
+import com.rup.web.dto.request.MemberRequestDto;
 import com.rup.web.dto.response.MemberResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,5 +49,18 @@ public class MemberService {
         return MemberResponseDto.LoginMember.builder()
                 .accessToken(token)
                 .build();
+    }
+
+    public void signUp(MemberRequestDto.signUpDto signUpDto) {
+        Member member = Member.builder()
+                .name(signUpDto.getNickname())
+                .OAuthId(signUpDto.getKakaoId())
+                .point(0L)
+                .userRole(UserRole.USER)
+                .type(signUpDto.getType())
+                .keyword(signUpDto.getKeyword())
+                .build();
+        memberRepository.save(member);
+
     }
 }

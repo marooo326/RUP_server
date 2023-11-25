@@ -1,5 +1,6 @@
 package com.rup.domain;
 
+import com.rup.domain.enums.MemberKeyword;
 import com.rup.domain.enums.MemberStatus;
 import com.rup.domain.enums.MemberType;
 import com.rup.domain.enums.UserRole;
@@ -39,6 +40,9 @@ public class Member extends BaseEntity {
 
     @Column(name = "oauth_id", unique = true, nullable = false)
     private String OAuthId;
+
+    @Enumerated(EnumType.STRING)
+    private MemberKeyword keyword;
 
     //    @Column(nullable = false)
     @Enumerated(EnumType.STRING)

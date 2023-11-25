@@ -20,9 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://localhost:63343",
                         "http://localhost:3000",
                         "http://localhost:8080",
-                        "https://port-0-rup-server-cn1vmr2clp9vy29k.sel5.cloudtype.app/",
-                        "http://port-0-rup-server-cn1vmr2clp9vy29k.sel5.cloudtype.app/"
-
+                        "https://port-0-rup-server-cn1vmr2clp9vy29k.sel5.cloudtype.app/"
                 )
                 // 모든 HTTP Method를 허용한다.
                 .allowedMethods("*", "PUT", "POST", "DELETE", "OPTIONS", "PATCH", "GET")
