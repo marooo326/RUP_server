@@ -1,5 +1,7 @@
 package com.rup.service;
 
+import com.rup.apiPayload.code.ErrorStatus;
+import com.rup.apiPayload.exception.handler.PromiseExceptionHandler;
 import com.rup.domain.Location;
 import com.rup.domain.Member;
 import com.rup.domain.Promise;
@@ -31,13 +33,11 @@ public class PromiseService {
     private final MemberService memberService;
 
     public Promise createPromise(Long memberId, PromiseCreateDto createDto) {
-        System.out.println("memberId = " + memberId);
         Location location = Location.builder()
                 .address(createDto.getAddress())
                 .longitude(createDto.getLongitude())
                 .latitude(createDto.getLatitude())
                 .build();
-        System.out.println("memberId2 = " + memberId);
         Member member = memberService.findMember(memberId);
         Promise promise = Promise.builder()
                 .name(createDto.getName())
@@ -47,14 +47,13 @@ public class PromiseService {
                 .author(member)
                 .inviteCode(createRandomCode())
                 .build();
-        System.out.println("memberId = " + memberId);
 
         return promiseRepository.save(promise);
     }
 
     public Promise participateInPromise(Long memberId, String inviteCode) {
         System.out.println("inviteCode = " + inviteCode);
-        Promise promise = promiseRepository.findByInviteCode(inviteCode).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
+        Promise promise = promiseRepository.findByInviteCode(inviteCode).orElseThrow(() -> new PromiseExceptionHandler(ErrorStatus._PROMISE_NOT_FOUND_EXCEPTION));
         Member member = memberService.findMember(memberId);
         PromiseMember promiseMember = builderPromiseMember(member, promise);
         promiseMemberRepository.save(promiseMember);
@@ -63,18 +62,18 @@ public class PromiseService {
 
 
     public List<Promise> getAllPromises(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new PromiseExceptionHandler(ErrorStatus._PROMISE_NOT_FOUND_EXCEPTION));
         return promiseRepository.findAllByAuthor(member);
     }
 
     public Promise getPromise(Long memberId, Long promiseId) {
-        return promiseRepository.findById(promiseId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
+        return promiseRepository.findById(promiseId).orElseThrow(() -> new PromiseExceptionHandler(ErrorStatus._PROMISE_NOT_FOUND_EXCEPTION));
     }
 
     public List<MemberResponseDto.LocationResponseDto> updateLocation(Long memberId,
                                                                       Long promiseId,
                                                                       PromiseRequestDto.LocationUpdateDto updateDto) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new PromiseExceptionHandler(ErrorStatus._MEMBER_NOT_FOUND_EXCEPTION));
         Location location = Location.builder()
                 .longitude(updateDto.getLongitude())
                 .latitude(updateDto.getLatitude())
@@ -100,7 +99,7 @@ public class PromiseService {
     }
 
     public List<MemberResponseDto.MemberDetailResponseDto> completePromise(Long promiseId) {
-        Promise promise = promiseRepository.findById(promiseId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
+        Promise promise = promiseRepository.findById(promiseId).orElseThrow(() -> new PromiseExceptionHandler(ErrorStatus._PROMISE_NOT_FOUND_EXCEPTION));
         promise.complete();
         List<PromiseMember> latePromiseMember = promise.getPromiseMembers().stream()
                 .filter(promiseMember -> promiseMember.getStatus() == PromiseMemberStatus.NOT_ARRIVED)
@@ -110,7 +109,7 @@ public class PromiseService {
     }
 
     public void completeMember(Long memberId, Long promiseId) {
-        PromiseMember promiseMember = promiseMemberRepository.findByMemberIdAndPromiseId(memberId, promiseId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
+        PromiseMember promiseMember = promiseMemberRepository.findByMemberIdAndPromiseId(memberId, promiseId).orElseThrow(() -> new PromiseExceptionHandler(ErrorStatus._PROMISE_NOT_FOUND_EXCEPTION));
         promiseMember.complete();
     }
 

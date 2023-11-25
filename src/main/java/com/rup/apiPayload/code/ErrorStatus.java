@@ -15,8 +15,17 @@ public enum ErrorStatus implements BaseCode {
     _FORBIDDEN(FORBIDDEN, 4003, "금지된 요청입니다."),
 
     _MEMBER_NOT_FOUND_EXCEPTION(NOT_FOUND, 4004, "존재하지 않는 회원입니다."),
+    _MEMBER_ALREADY_EXIST_EXCEPTION(BAD_REQUEST, 4005, "이미 존재하는 회원입니다."),
+    _MEMBER_NOT_MATCH_EXCEPTION(BAD_REQUEST, 4006, "회원 정보가 일치하지 않습니다."),
+    _MEMBER_NOT_AUTHORIZED_EXCEPTION(UNAUTHORIZED, 4007, "권한이 없습니다."),
 
-    INVALID_TOKEN_EXCEPTION(UNAUTHORIZED, 4008, "토큰이 올바르지 않습니다.");
+    _PROMISE_NOT_FOUND_EXCEPTION(NOT_FOUND, 4010, "존재하지 않는 약속입니다."),
+    _PROMISE_ALREADY_EXIST_EXCEPTION(BAD_REQUEST, 4011, "이미 존재하는 약속입니다."),
+    _PROMISE_NOT_MATCH_EXCEPTION(BAD_REQUEST, 4012, "약속 정보가 일치하지 않습니다."),
+    _PROMISE_NOT_AUTHORIZED_EXCEPTION(UNAUTHORIZED, 4013, "권한이 없습니다."),
+    _PROMISE_NOT_PARTICIPANT_EXCEPTION(UNAUTHORIZED, 4014, "참여자가 아닙니다."),
+
+    INVALID_TOKEN_EXCEPTION(UNAUTHORIZED, 4050, "토큰이 올바르지 않습니다.");
     private final HttpStatus httpStatus;
     private final Integer code;
     private final String message;
