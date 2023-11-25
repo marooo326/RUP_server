@@ -31,7 +31,11 @@ public class Promise extends BaseEntity {
     private Long penalty;
 
     @Column(nullable = false)
-    private String randomCode;
+    private String inviteCode;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private Member author;
 
     @Enumerated(EnumType.STRING)
     private PromiseStatus status;
