@@ -1,6 +1,9 @@
-package com.rup.domain;
+package com.rup.domain.mapping;
 
-import com.rup.domain.enums.PromiseStatus;
+import com.rup.domain.BaseEntity;
+import com.rup.domain.Member;
+import com.rup.domain.Promise;
+import com.rup.domain.enums.PromiseMemberStatus;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -28,5 +31,5 @@ public class PromiseMember extends BaseEntity {
     private Promise promise;
 
     @Enumerated(EnumType.STRING)
-    private PromiseStatus status;
+    private PromiseMemberStatus status;
 }
