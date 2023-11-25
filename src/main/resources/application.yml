@@ -16,3 +16,10 @@ spring:
           auto: update
         default_batch_fetch_size: 1000
         show_sql: true
+jwt:
+  secret:
+    key: secrethbhbsecretehbhb987654321secrethbhbsecretehbhb987654321secrethbhbsecretehbhb987654321
+
+#server:
+#  use-forward-headers=true
+#  forward-headers-strategy=framework
