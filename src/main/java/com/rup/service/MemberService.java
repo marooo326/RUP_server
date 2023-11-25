@@ -21,6 +21,11 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public Member getMember(Long memberId) {
+        return findMember(memberId);
+    }
+
+    public Member findMember(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow(() -> new MemberExceptionHandler(ErrorStatus._MEMBER_NOT_FOUND_EXCEPTION));
     }
+
 }
