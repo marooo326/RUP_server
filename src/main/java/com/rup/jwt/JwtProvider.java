@@ -34,7 +34,7 @@ public class JwtProvider {
     private Key secretKey;
 
     // 만료시간 : 1Hour
-    private final long exp = 1000L * 60 * 60;
+    private final long exp = 1000L * 60 * 6000;
 
 //    private final CustomUserDetailsService userDetailsService;
 
@@ -47,7 +47,7 @@ public class JwtProvider {
         Date now = new Date();
         return Jwts.builder()
                 .setSubject(String.valueOf(memberId))
-                .claim("AUTHORITIES",authorities)
+                .claim("AUTHORITIES", authorities)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + exp))
                 .signWith(secretKey, SignatureAlgorithm.HS256)
@@ -74,7 +74,7 @@ public class JwtProvider {
 
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
         return null;

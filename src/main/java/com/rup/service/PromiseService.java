@@ -53,11 +53,12 @@ public class PromiseService {
     }
 
     public Promise participateInPromise(Long memberId, String inviteCode) {
-        Promise getPromise = promiseRepository.findByInviteCode(inviteCode);
-        Member getMember = memberService.findMember(memberId);
-        PromiseMember promiseMember = builderPromiseMember(getMember, getPromise);
+        System.out.println("inviteCode = " + inviteCode);
+        Promise promise = promiseRepository.findByInviteCode(inviteCode).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
+        Member member = memberService.findMember(memberId);
+        PromiseMember promiseMember = builderPromiseMember(member, promise);
         promiseMemberRepository.save(promiseMember);
-        return getPromise;
+        return promise;
     }
 
 

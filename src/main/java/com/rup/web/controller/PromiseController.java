@@ -3,6 +3,7 @@ package com.rup.web.controller;
 import com.rup.apiPayload.response.ResponseDto;
 import com.rup.domain.Promise;
 import com.rup.service.PromiseService;
+import com.rup.web.dto.request.PromiseRequestDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -41,8 +42,8 @@ public class PromiseController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @PostMapping("/participate")
-    public ResponseDto<PromiseSummaryResponseDto> participateInPromise(@RequestBody String inviteCode) {
-        Promise promise = promiseService.participateInPromise(getMemberId(), inviteCode);
+    public ResponseDto<PromiseSummaryResponseDto> participateInPromise(@RequestBody PromiseRequestDto.participateInPromiseDto inviteCode) {
+        Promise promise = promiseService.participateInPromise(getMemberId(), inviteCode.getInviteCode());
         return ResponseDto.of(PromiseSummaryResponseDto.of(promise));
     }
 

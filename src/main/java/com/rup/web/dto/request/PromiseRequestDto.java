@@ -29,4 +29,13 @@ public class PromiseRequestDto {
         private String longitude;
         private String latitude;
     }
+
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class participateInPromiseDto {
+        private String inviteCode;
+    }
 }
