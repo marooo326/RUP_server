@@ -38,6 +38,7 @@ public class SecurityConfig {
                         "/member/exists",
                         "/member/login",
                         "/member/**",
+                        "/vote/**",
                         "/docs/**", "/members/oauth/**"
                 );
     }
