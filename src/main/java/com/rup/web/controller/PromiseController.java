@@ -12,6 +12,7 @@ import java.util.List;
 import static com.rup.web.dto.request.PromiseRequestDto.LocationUpdateDto;
 import static com.rup.web.dto.request.PromiseRequestDto.PromiseCreateDto;
 import static com.rup.web.dto.response.MemberResponseDto.LocationResponseDto;
+import static com.rup.web.dto.response.MemberResponseDto.MemberDetailResponseDto;
 import static com.rup.web.dto.response.PromiseResponseDto.PromiseDetailResponseDto;
 import static com.rup.web.dto.response.PromiseResponseDto.PromiseSummaryResponseDto;
 
@@ -55,4 +56,9 @@ public class PromiseController {
         return ResponseDto.of(allLocations);
     }
 
+    //약속 완료 시키고 지각자들 전부 반환
+    @PostMapping("/{promiseId}/complete")
+    public ResponseDto<List<MemberDetailResponseDto>> completePromise(@PathVariable Long promiseId) {
+        return ResponseDto.of(promiseService.completePromise(promiseId));
+    }
 }

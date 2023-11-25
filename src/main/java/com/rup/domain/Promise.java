@@ -34,8 +34,9 @@ public class Promise extends BaseEntity {
     @Column(nullable = false)
     private String inviteCode;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private PromiseStatus status;
+    private PromiseStatus status = PromiseStatus.OPEN;
 
     @OneToOne
     private Location location;
@@ -47,4 +48,14 @@ public class Promise extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "promise")
     private List<PromiseMember> promiseMembers = new ArrayList<>();
+
+    public void complete() {
+        this.status = PromiseStatus.COMPLETED;
+    }
+
+    public void cancel() {
+        this.status = PromiseStatus.CANCELLED;
+    }
+
+
 }

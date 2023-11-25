@@ -94,5 +94,13 @@ public class PromiseService {
         return RandomStringUtils.randomNumeric(RANDOM_CODE_LENGTH);
     }
 
-
+    public List<MemberResponseDto.MemberDetailResponseDto> completePromise(Long promiseId) {
+        Promise promise = promiseRepository.findById(promiseId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
+        promise.complete();
+        List<PromiseMember> latePromiseMember = promise.getPromiseMembers().stream()
+                .filter(promiseMember -> promiseMember.getStatus() == PromiseMemberStatus.LATE)
+                .toList();
+        return latePromiseMember.stream().map(promiseMember ->
+                MemberResponseDto.MemberDetailResponseDto.of(promiseMember.getMember())).toList();
+    }
 }

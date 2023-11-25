@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MemberConverter {
-    public MemberResponseDto.MemberInfoResponseDto memberEntityToMemberInfoDto(Member member) {
-        return MemberResponseDto.MemberInfoResponseDto.builder()
+    public MemberResponseDto.MemberDetailResponseDto memberEntityToMemberInfoDto(Member member) {
+        return MemberResponseDto.MemberDetailResponseDto.builder()
                 .name(member.getName())
                 .point(member.getPoint())
                 .build();

@@ -1,19 +1,55 @@
 package com.rup.web.dto.response;
 
 import com.rup.domain.Member;
+import com.rup.domain.enums.MemberStatus;
+import com.rup.domain.enums.MemberType;
 import lombok.*;
 
 
 public class MemberResponseDto {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long id;
+//
+//    @Column(nullable = false)
+//    private String name;
+//
+//    @Column(nullable = false)
+//    private Long point;
+//
+//    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private MemberType type;
 
+    //    @Enumerated(EnumType.STRING)
+//    @Column(name = "user_role", nullable = false)
+//    @ColumnDefault("'USER'")
+//    private UserRole userRole;
+//
+//    @Column(name = "oauth_id", unique = true, nullable = false)
+//    private String OAuthId;
+//
+//    //    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private MemberStatus status;
     @Builder
     @Getter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class MemberInfoResponseDto {
+    public static class MemberDetailResponseDto {
         private String name;
         private Long point;
-        //MBTI추가
+        private MemberType type;
+        private MemberStatus status;
+
+        public static MemberDetailResponseDto of(Member member) {
+            return MemberDetailResponseDto.builder()
+                    .name(member.getName())
+                    .point(member.getPoint())
+                    .type(member.getType())
+                    .status(member.getStatus())
+                    .build();
+        }
     }
 
     @Builder

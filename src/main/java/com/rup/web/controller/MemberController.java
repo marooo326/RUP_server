@@ -6,7 +6,7 @@ import com.rup.domain.Member;
 import com.rup.service.MemberService;
 import com.rup.web.dto.request.MemberRequestDto;
 import com.rup.web.dto.response.MemberResponseDto;
-import com.rup.web.dto.response.MemberResponseDto.MemberInfoResponseDto;
+import com.rup.web.dto.response.MemberResponseDto.MemberDetailResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -26,9 +26,9 @@ public class MemberController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @GetMapping("/{userId}")
-    public ResponseDto<MemberInfoResponseDto> getMember(@PathVariable("userId") Long userId) {
+    public ResponseDto<MemberDetailResponseDto> getMember(@PathVariable("userId") Long userId) {
         Member member = memberService.getMember(userId);
-        MemberInfoResponseDto memberInfoResponseDto = memberConverter.memberEntityToMemberInfoDto(member);
+        MemberDetailResponseDto memberInfoResponseDto = memberConverter.memberEntityToMemberInfoDto(member);
         return ResponseDto.of(memberInfoResponseDto);
     }
 
