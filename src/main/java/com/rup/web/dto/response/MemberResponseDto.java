@@ -1,9 +1,12 @@
 package com.rup.web.dto.response;
 
+import com.rup.domain.Keyword;
 import com.rup.domain.Member;
 import com.rup.domain.enums.MemberStatus;
 import com.rup.domain.enums.MemberType;
 import lombok.*;
+
+import java.util.List;
 
 
 public class MemberResponseDto {
@@ -94,5 +97,13 @@ public class MemberResponseDto {
     @NoArgsConstructor
     public static class basicResponseDto {
         private boolean basicResponse;
+    }
+
+    @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class keywordDto {
+        private List<Keyword> keywords;
     }
 }

@@ -2,7 +2,9 @@ package com.rup.web.controller;
 
 import com.rup.apiPayload.response.ResponseDto;
 import com.rup.converter.MemberConverter;
+import com.rup.domain.Keyword;
 import com.rup.domain.Member;
+import com.rup.service.KeywordService;
 import com.rup.service.MemberService;
 import com.rup.web.dto.request.MemberRequestDto;
 import com.rup.web.dto.response.MemberResponseDto;
@@ -13,6 +15,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
     private final MemberService memberService;
     private final MemberConverter memberConverter;
+    private final KeywordService keywordService;
 
     @Operation(summary = "(임시)유저 정보 조회 API", description = "(임시)유저 정보 조회 API입니다.")
     @ApiResponses({
@@ -52,12 +57,21 @@ public class MemberController {
     public ResponseDto<MemberResponseDto.LoginMember> memberLogin(@RequestBody MemberRequestDto.kakaoMember kakaoMember) {
         return ResponseDto.of(memberService.login(kakaoMember.getKakaoId()));
     }
-    
+
     @PostMapping("/signUp")
     public ResponseDto<MemberResponseDto.basicResponseDto> signup(@RequestBody MemberRequestDto.signUpDto signUpDto) {
         memberService.signUp(signUpDto);
         return ResponseDto.of(MemberResponseDto.basicResponseDto.builder()
                 .basicResponse(true)
+                .build());
+    }
+
+    @GetMapping("/keywords")
+    public ResponseDto<MemberResponseDto.keywordDto> keywords() {
+        List<Keyword> keywords = keywordService.findAll();
+
+        return ResponseDto.of(MemberResponseDto.keywordDto.builder()
+                .keywords(keywords)
                 .build());
     }
 
