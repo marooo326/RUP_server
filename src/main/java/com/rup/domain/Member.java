@@ -38,7 +38,7 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne
     private Location location;
 
     @OneToMany(mappedBy = "member")

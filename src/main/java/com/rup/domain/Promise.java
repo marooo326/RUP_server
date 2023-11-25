@@ -33,12 +33,15 @@ public class Promise extends BaseEntity {
     @Column(nullable = false)
     private String inviteCode;
 
+    @Enumerated(EnumType.STRING)
+    private PromiseStatus status;
+
+    @OneToOne
+    private Location location;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private Member author;
-
-    @Enumerated(EnumType.STRING)
-    private PromiseStatus status;
 
     @OneToMany(mappedBy = "promise")
     private List<PromiseMember> promiseMembers;

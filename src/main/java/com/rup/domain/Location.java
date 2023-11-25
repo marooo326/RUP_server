@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "locations", indexes = @Index(name = "idx_member_id", columnList = "member_id"))
+@Table(name = "locations")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,13 +18,12 @@ public class Location extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    @Column
+    private String address;
 
     @Column(nullable = false)
-    private String x;
+    private String latitude;
 
     @Column(nullable = false)
-    private String y;
+    private String longitude;
 }
