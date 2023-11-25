@@ -47,7 +47,7 @@ public class PromiseController {
         return ResponseDto.of(PromiseSummaryResponseDto.of(promise));
     }
 
-    @Operation(summary = "약속 전체 조회 API", description = "약속 전체조회 API입니다. 자신이 참여한 약속 전체를 조회합니다.")
+    @Operation(summary = "본인 약속 전체 조회 API", description = "약속 전체조회 API입니다. 자신이 참여한 약속 전체를 조회합니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
@@ -89,14 +89,24 @@ public class PromiseController {
         return ResponseDto.of(promiseService.completePromise(promiseId));
     }
 
+    @Operation(summary = "약속 삭제 API", description = "약속을 삭제하시면 됩니다.)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "2000", description = "OK 성공"),
+    })
+    @DeleteMapping("/{promiseId}")
+    public ResponseDto<Void> deletePromise(@PathVariable Long promiseId) {
+        promiseService.deletePromise(promiseId);
+        return ResponseDto.of(null);
+    }
+
     private Long getMemberId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return Long.parseLong(authentication.getName().toString());
     }
+
+
     //삭제
     //수정 1시간 전에만
 
-    //BATCH 거리계산 기반 자동 종료 필요
 
-    // 투표 완료 시 포인트 할인 / 포인트 증감
 }

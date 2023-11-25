@@ -103,9 +103,13 @@ public class PromiseService {
         Promise promise = promiseRepository.findById(promiseId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 약속입니다."));
         promise.complete();
         List<PromiseMember> latePromiseMember = promise.getPromiseMembers().stream()
-                .filter(promiseMember -> promiseMember.getStatus() == PromiseMemberStatus.LATE)
+                .filter(promiseMember -> promiseMember.getStatus() == PromiseMemberStatus.NOT_ARRIVED)
                 .toList();
         return latePromiseMember.stream().map(promiseMember ->
                 MemberResponseDto.MemberDetailResponseDto.of(promiseMember.getMember())).toList();
+    }
+
+    public void deletePromise(Long promiseId) {
+        promiseRepository.deleteById(promiseId);
     }
 }

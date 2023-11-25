@@ -44,10 +44,9 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private MemberKeyword keyword;
-
-    @Builder.Default
+    
     @Enumerated(EnumType.STRING)
-    private MemberStatus status = MemberStatus.ACTIVE;
+    private MemberStatus status;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Location location;

@@ -66,6 +66,7 @@ public class MemberResponseDto {
         private String name;
         private String latitude;
         private String longitude;
+        private String url;
 
         public static LocationResponseDto of(Member member) {
             return LocationResponseDto.builder()
@@ -73,6 +74,7 @@ public class MemberResponseDto {
                     .name(member.getName())
                     .latitude(member.getLocation().getLatitude())
                     .longitude(member.getLocation().getLongitude())
+                    .url("https://rup-ets-bucket.s3.ap-northeast-2.amazonaws.com/pin.svg")
                     .build();
         }
     }
