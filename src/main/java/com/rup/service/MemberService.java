@@ -1,12 +1,12 @@
 package com.rup.service;
 
+import com.rup.apiPayload.code.ErrorStatus;
+import com.rup.apiPayload.exception.handler.MemberExceptionHandler;
 import com.rup.domain.Member;
 import com.rup.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,7 +21,6 @@ public class MemberService {
 
     @Transactional(readOnly = true)
     public Member getMember(Long memberId) {
-        Optional<Member> getMember = memberRepository.findById(memberId);
-        return getMember.get();
+        return memberRepository.findById(memberId).orElseThrow(() -> new MemberExceptionHandler(ErrorStatus._MEMBER_NOT_FOUND_EXCEPTION));
     }
 }
