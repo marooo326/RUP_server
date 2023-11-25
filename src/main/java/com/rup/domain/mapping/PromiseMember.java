@@ -22,14 +22,18 @@ public class PromiseMember extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "promise_id")
     private Promise promise;
 
     @Enumerated(EnumType.STRING)
     private PromiseMemberStatus status;
+
+    public void updateStatus(PromiseMemberStatus status) {
+        this.status = status;
+    }
 }

@@ -33,6 +33,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberType type;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role", nullable = false)
     @ColumnDefault("'USER'")
@@ -48,13 +49,17 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<PromiseMember> promiseMembers;
 
     public void updateLocation(Location location) {
         this.location = location;
+    }
+
+    public void updatePoint(Long point) {
+        this.point = point;
     }
 }

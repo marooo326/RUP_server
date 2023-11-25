@@ -3,7 +3,6 @@ package com.rup.annotation.resolver;
 import com.rup.annotation.AuthMember;
 import com.rup.apiPayload.code.ErrorStatus;
 import com.rup.apiPayload.exception.handler.MemberExceptionHandler;
-import com.rup.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.Authentication;
@@ -21,14 +20,13 @@ public class AuthMemberArgumentResolver implements HandlerMethodArgumentResolver
     public boolean supportsParameter(MethodParameter parameter) {
         AuthMember authMember = parameter.getParameterAnnotation(AuthMember.class);
         if (authMember == null) return false;
-        if (parameter.getParameterType().equals(Member.class) == false) {
-            return false;
-        }
+        if (!parameter.getParameterType().equals(Long.class)) return false;
         return true;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        System.out.println("12312123 = " + 12312123);
         Object principal = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

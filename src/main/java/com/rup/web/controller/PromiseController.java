@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +32,8 @@ public class PromiseController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @PostMapping
-    public ResponseDto<PromiseSummaryResponseDto> createPromise(@AuthMember Long memberId, @RequestBody PromiseCreateDto createDto) {
-        Promise promise = promiseService.createPromise(memberId, createDto);
+    public ResponseDto<PromiseSummaryResponseDto> createPromise(@RequestBody PromiseCreateDto createDto) {
+        Promise promise = promiseService.createPromise(getMemberId(), createDto);
         return ResponseDto.of(PromiseSummaryResponseDto.of(promise));
     }
 
@@ -40,8 +42,8 @@ public class PromiseController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @PostMapping("/participate")
-    public ResponseDto<PromiseSummaryResponseDto> participateInPromise(@AuthMember Long memberId, @RequestBody String inviteCode) {
-        Promise promise = promiseService.participateInPromise(memberId, inviteCode);
+    public ResponseDto<PromiseSummaryResponseDto> participateInPromise(@RequestBody String inviteCode) {
+        Promise promise = promiseService.participateInPromise(getMemberId(), inviteCode);
         return ResponseDto.of(PromiseSummaryResponseDto.of(promise));
     }
 
@@ -50,8 +52,8 @@ public class PromiseController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @GetMapping("/")
-    public ResponseDto<List<PromiseSummaryResponseDto>> getPromises(@AuthMember Long memberId) {
-        List<Promise> promise = promiseService.getAllPromises(memberId);
+    public ResponseDto<List<PromiseSummaryResponseDto>> getPromises() {
+        List<Promise> promise = promiseService.getAllPromises(getMemberId());
         return ResponseDto.of(promise.stream().map(PromiseSummaryResponseDto::of).toList());
     }
 
@@ -60,8 +62,8 @@ public class PromiseController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @GetMapping("/{promiseId}")
-    public ResponseDto<PromiseDetailResponseDto> getPromise(@AuthMember Long memberId, @PathVariable Long promiseId) {
-        Promise promise = promiseService.getPromise(memberId, promiseId);
+    public ResponseDto<PromiseDetailResponseDto> getPromise(@PathVariable Long promiseId) {
+        Promise promise = promiseService.getPromise(getMemberId(), promiseId);
         return ResponseDto.of(PromiseDetailResponseDto.of(promise));
     }
 
@@ -87,4 +89,15 @@ public class PromiseController {
     public ResponseDto<List<MemberDetailResponseDto>> completePromise(@PathVariable Long promiseId) {
         return ResponseDto.of(promiseService.completePromise(promiseId));
     }
+
+    private Long getMemberId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return Long.parseLong(authentication.getPrincipal().toString());
+    }
+    //삭제
+    //수정 1시간 전에만
+
+    //BATCH 거리계산 기반 자동 종료 필요
+
+    // 투표 완료 시 포인트 할인 / 포인트 증감
 }

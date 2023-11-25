@@ -26,7 +26,7 @@ public class Vote extends BaseEntity {
     @JoinColumn(name = "promise_id")
     private Promise promise;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member target;
 

@@ -38,7 +38,7 @@ public class Promise extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PromiseStatus status = PromiseStatus.OPEN;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,7 +46,7 @@ public class Promise extends BaseEntity {
     private Member author;
 
     @Builder.Default
-    @OneToMany(mappedBy = "promise")
+    @OneToMany(mappedBy = "promise", cascade = CascadeType.ALL)
     private List<PromiseMember> promiseMembers = new ArrayList<>();
 
     public void complete() {

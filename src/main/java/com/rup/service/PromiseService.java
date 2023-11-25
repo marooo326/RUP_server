@@ -31,19 +31,23 @@ public class PromiseService {
     private final MemberService memberService;
 
     public Promise createPromise(Long memberId, PromiseCreateDto createDto) {
+        System.out.println("memberId = " + memberId);
         Location location = Location.builder()
                 .address(createDto.getAddress())
                 .longitude(createDto.getLongitude())
                 .latitude(createDto.getLatitude())
                 .build();
+        System.out.println("memberId2 = " + memberId);
+        Member member = memberService.findMember(memberId);
         Promise promise = Promise.builder()
                 .name(createDto.getName())
                 .promiseTime(createDto.getPromiseTime())
                 .penalty(createDto.getPenalty())
                 .location(location)
-                .author(memberService.findMember(memberId))
+                .author(member)
                 .inviteCode(createRandomCode())
                 .build();
+        System.out.println("memberId = " + memberId);
 
         return promiseRepository.save(promise);
     }
