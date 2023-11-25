@@ -1,6 +1,8 @@
 package com.rup.domain;
 
 import com.rup.domain.enums.MemberStatus;
+import com.rup.domain.enums.MemberType;
+import com.rup.domain.mapping.PromiseMember;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -28,6 +30,11 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private Long point;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MemberType type;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
 

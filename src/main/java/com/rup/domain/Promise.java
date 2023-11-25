@@ -1,6 +1,7 @@
 package com.rup.domain;
 
 import com.rup.domain.enums.PromiseStatus;
+import com.rup.domain.mapping.PromiseMember;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -26,10 +27,12 @@ public class Promise extends BaseEntity {
     @Column(nullable = false)
     private LocalDateTime promiseTime;
 
+    @Column(nullable = false)
+    private Long penalty;
+
     @Enumerated(EnumType.STRING)
     private PromiseStatus status;
 
     @OneToMany(mappedBy = "promise")
     private List<PromiseMember> promiseMembers;
-
 }
