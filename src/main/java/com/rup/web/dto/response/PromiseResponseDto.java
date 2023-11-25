@@ -63,7 +63,7 @@ public class PromiseResponseDto {
                     .name(promise.getName())
                     .promiseTime(promise.getPromiseTime())
                     .promiseDate(promise.getPromiseTime().toLocalDate().toString())
-                    .promiseHour(promise.getPromiseTime().toLocalTime().toString().substring(0, 2))
+                    .promiseHour(promise.getPromiseTime().toLocalTime().toString().substring(0, 5))
                     .leftDate(day)
                     .leftHour(hour)
                     .leftMinute(minute)
