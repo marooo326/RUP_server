@@ -1,5 +1,6 @@
 package com.rup.web.controller;
 
+import com.rup.apiPayload.response.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -16,7 +17,9 @@ public class RootRestController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @GetMapping("/health")
-    String healthCheck(){
-        return "RUP Server is healthy!!";
+    ResponseDto<String> healthCheck()
+    {
+        String msg = "RUP Server is healthy!!";
+        return ResponseDto.of(msg);
     }
 }
