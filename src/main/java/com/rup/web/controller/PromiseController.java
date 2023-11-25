@@ -1,6 +1,5 @@
 package com.rup.web.controller;
 
-import com.rup.annotation.AuthMember;
 import com.rup.apiPayload.response.ResponseDto;
 import com.rup.domain.Promise;
 import com.rup.service.PromiseService;
@@ -73,11 +72,10 @@ public class PromiseController {
     })
     @PostMapping("/{promiseId}/locations")
     public ResponseDto<List<LocationResponseDto>> updateLocation(
-            @AuthMember Long memberId,
             @PathVariable Long promiseId,
             @RequestBody LocationUpdateDto updateDto) {
         // 자신의 위치를 업데이트 할 때, 반환값으로 나머지 멤버들 위치 전부 넘겨 주기
-        List<LocationResponseDto> allLocations = promiseService.updateLocation(memberId, promiseId, updateDto);
+        List<LocationResponseDto> allLocations = promiseService.updateLocation(getMemberId(), promiseId, updateDto);
         return ResponseDto.of(allLocations);
     }
 
