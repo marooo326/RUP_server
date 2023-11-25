@@ -8,6 +8,8 @@ public class MemberResponseDto {
 
     @Builder
     @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class MemberInfoResponseDto {
         private String name;
         private Long point;
@@ -34,14 +36,18 @@ public class MemberResponseDto {
         }
     }
 
-    @Getter
     @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class LoginMember {
         private String accessToken;
     }
 
-    @Getter
     @Builder
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class existsInfo {
         private boolean isExist;
     }

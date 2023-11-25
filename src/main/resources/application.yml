@@ -21,8 +21,8 @@ jwt:
     key: ${JWT_SECRET_KEY}
 
 server:
-  use-forward-headers=true
-  forward-headers-strategy=framework
+  servlet:
+    context-path: /
 cloud:
   aws:
     s3:
