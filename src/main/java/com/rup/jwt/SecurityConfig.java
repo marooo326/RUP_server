@@ -23,8 +23,9 @@ public class SecurityConfig {
 //    private final UrlBasedCorsConfigurationSource corsConfigurationSource;
 
     private final JwtProvider jwtProvider;
+
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer(){
+    public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .antMatchers(
                         "/favicon.ico",
@@ -34,12 +35,14 @@ public class SecurityConfig {
                         "/v3/api-docs",
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
-                        "/docs/**","/members/oauth/**"
+                        "/member/exists",
+                        "/member/login",
+                        "/docs/**", "/members/oauth/**"
                 );
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf().disable()
 
@@ -52,7 +55,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members/auth", "/swagger-ui.html","/swagger-ui/index.html").permitAll()
+                .antMatchers("/members/auth", "/swagger-ui.html", "/swagger-ui/index.html", "/member/login").permitAll()
 
 
                 .and()

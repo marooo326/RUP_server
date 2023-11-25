@@ -33,4 +33,16 @@ public class MemberResponseDto {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    public static class LoginMember {
+        private String accessToken;
+    }
+
+    @Getter
+    @Builder
+    public static class existsInfo {
+        private boolean isExist;
+    }
 }

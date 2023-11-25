@@ -2,8 +2,10 @@ package com.rup.domain;
 
 import com.rup.domain.enums.MemberStatus;
 import com.rup.domain.enums.MemberType;
+import com.rup.domain.enums.UserRole;
 import com.rup.domain.mapping.PromiseMember;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -25,16 +27,20 @@ public class Member extends BaseEntity {
     private String name;
 
     @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false)
     private Long point;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberType type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role", nullable = false)
+    @ColumnDefault("'USER'")
+    private UserRole userRole;
 
-    @Column(nullable = false)
+    @Column(name = "oauth_id", unique = true, nullable = false)
+    private String OAuthId;
+
+    //    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberStatus status;
 

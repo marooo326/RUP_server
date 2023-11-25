@@ -18,6 +18,14 @@ public class SwaggerConfig {
         return new ForwardedHeaderFilter();
     }
 
+//    @Bean
+//    public GroupedOpenApi publicApi() {
+//        return GroupedOpenApi.builder()
+//                .group("v1-definition")
+//                .packagesToScan("com.rup.web.controller")
+//                .build();
+//    }
+
     @Bean
     public OpenAPI SpringCodeBaseAPI() {
         Info info = new Info()
