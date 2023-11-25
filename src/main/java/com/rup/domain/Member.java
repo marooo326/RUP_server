@@ -33,7 +33,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private MemberType type;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "user_role", nullable = false)
     @ColumnDefault("'USER'")
@@ -45,9 +45,9 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberKeyword keyword;
 
-    //    @Column(nullable = false)
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private MemberStatus status;
+    private MemberStatus status = MemberStatus.ACTIVE;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Location location;
