@@ -51,9 +51,9 @@ public class PromiseController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @GetMapping("/")
-    public ResponseDto<List<PromiseSummaryResponseDto>> getPromises() {
+    public ResponseDto<List<PromiseDetailResponseDto>> getPromises() {
         List<Promise> promise = promiseService.getAllPromises(getMemberId());
-        return ResponseDto.of(promise.stream().map(PromiseSummaryResponseDto::of).toList());
+        return ResponseDto.of(promise.stream().map(PromiseDetailResponseDto::of).toList());
     }
 
     @Operation(summary = "약속 단건 조회 API", description = "약속 단건조회 API입니다. 자신이 참여한 약속 중 하나를 조회합니다.")
@@ -71,9 +71,9 @@ public class PromiseController {
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
     @PostMapping("/{promiseId}")
-    public ResponseDto<List<MemberDetailResponseDto>> completeMember(@PathVariable Long promiseId) {
+    public ResponseDto<Void> completeMember(@PathVariable Long promiseId) {
         promiseService.completeMember(getMemberId(), promiseId);
-        return ResponseDto.of(promiseService.completePromise(promiseId));
+        return ResponseDto.of(null);
     }
 
     @Operation(summary = "위치 업데이트 API", description = "위치를 업데이트하는 API입니다. Body에 위도, 경도, 주소를 넣어주시면 본인 위치를 업데이트하고, 나머지 멤버들의 위치를 반환합니다.")

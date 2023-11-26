@@ -28,7 +28,7 @@ public class MemberController {
     private final MemberConverter memberConverter;
     private final KeywordService keywordService;
 
-    @Operation(summary = "(임시)유저 정보 조회 API", description = "(임시)유저 정보 조회 API입니다.")
+    @Operation(summary = "멤버 정보 조회 API", description = "멤버 정보 조회 API입니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })
@@ -39,7 +39,7 @@ public class MemberController {
         return ResponseDto.of(memberInfoResponseDto);
     }
 
-    @Operation(summary = "존재하는 유저인지 확인 API", description = "db에 이미 존재하는 유저인지 확인하는 API입니다. kakaoId를 넣어주시면 됩니다.")
+    @Operation(summary = "존재하는 멤버인지 확인 API", description = "db에 이미 존재하는 멤버인지 확인하는 API입니다. kakaoId를 넣어주시면 됩니다.")
     @ApiResponses({
             @ApiResponse(responseCode = "2000", description = "OK 성공"),
     })

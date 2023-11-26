@@ -109,7 +109,8 @@ public class PromiseService {
     }
 
     public void completeMember(Long memberId, Long promiseId) {
-        PromiseMember promiseMember = promiseMemberRepository.findByMemberIdAndPromiseId(memberId, promiseId).orElseThrow(() -> new PromiseExceptionHandler(ErrorStatus._PROMISE_NOT_FOUND_EXCEPTION));
+        PromiseMember promiseMember = promiseMemberRepository.findByMemberIdAndPromiseId(memberId, promiseId).orElseThrow(
+                () -> new PromiseExceptionHandler(ErrorStatus._PROMISE_NOT_FOUND_EXCEPTION));
         promiseMember.complete();
     }
 
