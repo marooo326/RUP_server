@@ -69,12 +69,21 @@ public class MemberResponseDto {
         private String url;
 
         public static LocationResponseDto of(Member member) {
+            if (member.getId() == 3) {
+                return LocationResponseDto.builder()
+                        .memberId(member.getId())
+                        .name(member.getName())
+                        .latitude(member.getLocation().getLatitude())
+                        .longitude(member.getLocation().getLongitude())
+                        .url("https://rup-ets-bucket.s3.ap-northeast-2.amazonaws.com/pin%40des.png")
+                        .build();
+            }
             return LocationResponseDto.builder()
                     .memberId(member.getId())
                     .name(member.getName())
                     .latitude(member.getLocation().getLatitude())
                     .longitude(member.getLocation().getLongitude())
-                    .url("https://rup-ets-bucket.s3.ap-northeast-2.amazonaws.com/pin.svg")
+                    .url("https://rup-ets-bucket.s3.ap-northeast-2.amazonaws.com/pin%402x.png")
                     .build();
         }
     }
